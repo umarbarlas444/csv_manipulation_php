@@ -24,6 +24,9 @@
             fputcsv($tFileHandler, $row);
         }
 
+        if(!$isFound && !$isUpdated){
+            echo "error: no inputs left";
+        }
         fclose($sFileHandler);
         fclose($tFileHandler);
         unlink($sourceFileName);
