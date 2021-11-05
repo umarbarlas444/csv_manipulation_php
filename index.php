@@ -9,17 +9,19 @@
         $isUpdated = false;
 
 
-        while(($row = fgetcsv($sFileHandler)) !== false && !$isFound){
-            if($row[1]){
-                if($userIP == $row[1]){
+        while(($row = fgetcsv($sFileHandler)) !== false){
+            if(!$isFound && !$isUpdated){
+                if($row[1]){
+                    if($userIP == $row[1]){
+                        echo $row[0];
+                        $isFound = true;
+                    }
+                }else{
+                    //First empty row found
+                    $row[1] = $userIP;
                     echo $row[0];
-                    $isFound = true;
+                    $isUpdated = true;
                 }
-            }else if(!$isUpdated){
-                $row[1] = $userIP;
-                echo $row[0];
-                $isUpdated = true;
-                //First empty row found
             }
             fputcsv($tFileHandler, $row);
         }
